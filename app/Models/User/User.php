@@ -13,9 +13,10 @@ use Spatie\Searchable\SearchResult;
 
 class User extends Authenticatable implements Searchable
 {
-    use HasFactory;
+    // use HasFactory;
     use Notifiable;
     use SoftDeletes;
+    use HasApiTokens;
 
     /**
      * The attributes that are mass assignable.
@@ -25,10 +26,11 @@ class User extends Authenticatable implements Searchable
     protected $fillable = [
         'name',
         'email',
+        'phone',
         'password',
-        // 'active',
-        // 'activation_token',
-        // 'avatar'
+        'status',
+        'activation_token',
+        'avatar'
     ];
 
     /**
@@ -39,7 +41,7 @@ class User extends Authenticatable implements Searchable
     protected $hidden = [
         'password',
         'remember_token',
-        // 'activation_token'
+        'activation_token'
     ];
 
     /**
@@ -65,11 +67,11 @@ class User extends Authenticatable implements Searchable
      *
      * @var array
      */
-    // protected $appends = ['avatar_url'];
+    protected $appends = ['avatar_url'];
 
-    // public function getAvatarUrlAttribute() {
-    //     return Storage::url('avatars/'.$this->id.'/'.$this->avatar);
-    // }
+    public function getAvatarUrlAttribute() {
+        return $this->avatar ? Storage::url('avatars/'.$this->id.'/'.$this->avatar) : null;
+    }
 
     public function getSearchResult(): SearchResult
     {

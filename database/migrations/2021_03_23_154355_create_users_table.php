@@ -18,8 +18,11 @@ class CreateUsersTable extends Migration
             $table->string('name');
             $table->string('email')->unique()->nullable();
             $table->string('phone')->nullable();
+            $table->string('avatar')->nullable();
             $table->string('password')->nullable();
             $table->rememberToken();
+            $table->enum('status', ['registered', 'active', 'banned'])->nullable()->default('registered');
+            $table->string('activation_token')->nullable();
             $table->bigInteger('currency_id')->unsigned()->nullable();
             $table->foreign('currency_id')->references('id')->on('currencies')->onDelete('SET NULL');
             $table->bigInteger('company_id')->unsigned()->nullable();
