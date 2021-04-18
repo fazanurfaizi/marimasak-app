@@ -19,6 +19,11 @@ class User extends Authenticatable implements Searchable
     use SoftDeletes;
     use HasApiTokens;
 
+    const REGISTERED = 'registered';
+    const ONLINE = 'online';
+    const OFFLINE = 'offline';
+    const BANNED = 'banned';
+
     /**
      * The attributes that are mass assignable.
      *
