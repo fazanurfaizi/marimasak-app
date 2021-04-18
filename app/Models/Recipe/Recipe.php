@@ -5,10 +5,12 @@ namespace App\Models\Recipe;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\User\User;
+use App\Traits\RecipeLikeable;
 
 class Recipe extends Model
 {
     use HasFactory;
+    use RecipeLikeable;
 
     public $fillable = [
         'name',
@@ -19,12 +21,16 @@ class Recipe extends Model
         'user_id'
     ];
 
+    protected $appends = [
+        'likes_count'
+    ];
+
     public function user() {
         return $this->belongsTo(User::class);
     }
 
     public function comments() {
-        return $this->hasMany(RecipeComment::class);
+        return $this->hasMany(RecipeComment::class)->orderBy('created_at', 'DESC');
     }
 
     public function likes() {
@@ -33,5 +39,9 @@ class Recipe extends Model
 
     public function tags() {
         return $this->hasMany(RecipeTag::class);
+    }
+
+    public function getLikesCountAttribute() {
+        return count($this->likes);
     }
 }
