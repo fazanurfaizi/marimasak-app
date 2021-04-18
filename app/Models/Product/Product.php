@@ -27,12 +27,24 @@ class Product extends Model implements Searchable
         'product_type_id',
     ];
 
+    protected $appends = [
+        'likes_count'
+    ];
+
     public function creator() {
         return $this->belongsTo(User::class, 'creator_id');
     }
 
     public function productType() {
         return $this->belognsTo(ProductType::class);
+    }
+
+    public function comments() {
+        return $this->hasMany(ProductComment::class);
+    }
+
+    public function getLikesCountAttribute() {
+        return count($this->likes);
     }
 
     public function getSearchResult(): SearchResult
@@ -44,5 +56,5 @@ class Product extends Model implements Searchable
             $this->name,
             $url
          );
-     }
+    }
 }

@@ -24,13 +24,18 @@ Route::group(['prefix' => 'auth', 'namespace' => 'Auth'], function() {
     });
 });
 
-Route::group(['prefix' => '/', 'namespace' => 'Recipe', 'middleware' => 'auth:api'], function() {
+Route::group(['prefix' => '/', 'namespace' => 'Recipe'], function() {
     Route::apiResource('recipe', 'RecipeController');
-    Route::prefix('recipe-comment')->group(function () {
+    Route::group(['prefix' => 'recipe-comment', 'middleware' => 'auth:api'], function () {
         Route::post('/', 'RecipeCommentController@store');
         Route::get('/{id}', 'RecipeCommentController@show');
         Route::put('/{id}', 'RecipeCommentController@update');
         Route::delete('/{id}', 'RecipeCommentController@destroy');
     });
-    Route::post('/recipe-like/{id}', 'RecipeLikeController');
+    Route::post('/recipe-like/{id}', 'RecipeLikeController')
+        ->middleware('auth:api');
+});
+
+Route::group(['prefix' => '/', 'namespace' => 'Product'], function() {
+    Route::get('product-types', 'ProductTypeController');
 });
