@@ -1,17 +1,19 @@
 <?php
 
-namespace App\Models\Product;
+namespace App\Models\Address;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class ProductReviewPhoto extends Model
+class District extends Model
 {
     use HasFactory;
 
+    protected $table = 'id_districts';
+
     protected $fillable = [
-        'user_id',
-        'product_photoable',
-        'photo'
+        'city_id',
+        'name',
+        'meta'
     ];
 }

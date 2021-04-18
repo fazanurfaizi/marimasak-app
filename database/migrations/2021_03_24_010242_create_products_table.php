@@ -19,13 +19,9 @@ class CreateProductsTable extends Migration
             $table->text('description')->nullable();
             $table->string('unit')->nullable();
             $table->double('price')->nullable();
-            $table->string('thumbnail')->nullable();
+            $table->string('unique_hash')->nullable();
             $table->bigInteger('product_type_id')->unsigned()->nullable();
             $table->foreign('product_type_id')->references('id')->on('product_types')->onDelete('SET NULL');
-            $table->bigInteger('company_id')->unsigned()->nullable();
-            $table->foreign('company_id')->references('id')->on('companies')->onDelete('SET NULL');
-            $table->bigInteger('unit_id')->unsigned()->nullable();
-            $table->foreign('unit_id')->references('id')->on('units')->onDelete('SET NULL');
             $table->bigInteger('creator_id')->unsigned()->nullable();
             $table->foreign('creator_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();

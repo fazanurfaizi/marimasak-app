@@ -1,17 +1,19 @@
 <?php
 
-namespace App\Models\Product;
+namespace App\Models\Order;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class ProductReviewPhoto extends Model
+class Promo extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'user_id',
-        'product_photoable',
-        'photo'
+        'promo_name',
+        'promo_code',
+        'price',
+        'desciption',
+        'active'
     ];
 }

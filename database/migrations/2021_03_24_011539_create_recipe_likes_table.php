@@ -15,11 +15,11 @@ class CreateRecipeLikesTable extends Migration
     {
         Schema::create('recipe_likes', function (Blueprint $table) {
             $table->id();
-            $table->enum('type', ['like', 'love', 'care', 'haha', 'wow', 'sad', 'angry'])->default('like');
             $table->bigInteger('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->bigInteger('recipe_id')->unsigned();
             $table->foreign('recipe_id')->references('id')->on('recipes')->onDelete('cascade');
+            $table->enum('type', ['like', 'love', 'care', 'haha', 'wow', 'sad', 'angry'])->default('like');
             $table->timestamps();
         });
     }

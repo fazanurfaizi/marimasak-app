@@ -20,8 +20,8 @@ class CreateRecipesTable extends Migration
             $table->text('materials');
             $table->text('methods')->nullable();
             $table->string('thumbnail')->nullable();
-            $table->bigInteger('creator_id')->unsigned()->nullable();
-            $table->foreign('creator_id')->references('id')->on('users')->onDelete('cascade');
+            $table->bigInteger('user_id')->unsigned()->nullable();
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
             $table->softDeletes();
         });

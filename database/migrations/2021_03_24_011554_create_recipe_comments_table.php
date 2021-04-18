@@ -16,7 +16,7 @@ class CreateRecipeCommentsTable extends Migration
         Schema::create('recipe_comments', function (Blueprint $table) {
             $table->id();
             $table->text('body');
-            $table->bigInteger('parent_id')->nullable();
+            // $table->bigInteger('parent_id')->nullable();
             $table->bigInteger('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->bigInteger('recipe_id')->unsigned();
