@@ -6,9 +6,21 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Recipe\Recipe;
 use Auth;
+use Str;
+use Image;
 
 class RecipeController extends Controller
 {
+    protected $uploadPath;
+
+    public function __construct() {
+        $this->middleware('auth:api', ['except' => [
+            'index', 'show'
+        ]]);
+
+        $this->uploadPath = public_path('uploads/recipes/');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -33,13 +45,28 @@ class RecipeController extends Controller
      */
     public function store(Request $request)
     {
-        $recipe = Recipe::create([
-            'name' => $request->name,
-            'description' => $request->description,
-            'materials' => $request->materials,
-            'methods' => $request->methods,
-            'user_id' => Auth::user()->id
-        ]);
+        $recipe = new Recipe();
+        $recipe->name = $request->name;
+        $recipe->description = $request->description;
+        $recipe->materials = $request->materials;
+        $recipe->methods = $request->methods;
+        $recipe->user_id = Auth::user()->id;
+
+        if($request->hasFile('thumbnail')) {
+
+            if(!file_exists($this->uploadPath)) {
+                mkdir($this->uploadPath, 777, true);
+            }
+
+            $image = $request->thumbnail;
+            $ext = $request->thumbnail->getClientOriginalExtension();
+            $imageName = (string) Str::uuid() . '.' . $ext;
+            $thumbnail = Image::make($image->getRealPath())->resize(1024, 512);
+            $savedImage = Image::make($thumbnail)->save($this->uploadPath . $imageName);
+            $recipe->image = $imageName;
+        }
+
+        $recipe->save();
 
         return response()->json([
             'message' => 'Recipe succesffulyy added',
@@ -87,6 +114,21 @@ class RecipeController extends Controller
         $recipe->description = $request->description;
         $recipe->materials = $request->materials;
         $recipe->methods = $request->methods;
+
+        if($request->hasFile('thumbnail')) {
+
+            if(!file_exists($this->uploadPath)) {
+                mkdir($this->uploadPath, 777, true);
+            }
+
+            $image = $request->thumbnail;
+            $ext = $request->thumbnail->getClientOriginalExtension();
+            $imageName = (string) Str::uuid() . '.' . $ext;
+            $thumbnail = Image::make($image->getRealPath())->resize(1024, 512);
+            $savedImage = Image::make($thumbnail)->save($this->uploadPath . $imageName);
+            $recipe->image = $imageName;
+        }
+
         $recipe->save();
 
         return response()->json([

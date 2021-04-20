@@ -15,10 +15,11 @@ class CreateProductLikesTable extends Migration
     {
         Schema::create('product_likes', function (Blueprint $table) {
             $table->id();
-            $table->enum('type', ['like', 'love', 'care', 'haha', 'wow', 'sad', 'angry'])->default('like');
             $table->bigInteger('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->nullableMorphs('product_likeable');
+            $table->bigInteger('product_id')->unsigned();
+            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
+            $table->enum('type', ['like', 'love', 'care', 'haha', 'wow', 'sad', 'angry'])->default('like');
             $table->timestamps();
         });
     }

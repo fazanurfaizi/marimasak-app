@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Auth;
 trait ProductLikeable {
 
     public function likes() {
-        return $this->morphMany(ProductLike::class, 'product_likeable');
+        return $this->hasMany(ProductLike::class);
     }
 
     public function isLiked() {

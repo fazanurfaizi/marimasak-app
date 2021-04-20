@@ -13,7 +13,11 @@
         "fideloper/proxy": "^4.4",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
+<<<<<<< HEAD
         "jeroennoten/laravel-adminlte": "^3.5",
+=======
+        "intervention/image": "^2.5",
+>>>>>>> 27693f6d80dd9cae8f64237403c0fdc8e78d38a9
         "laravel/framework": "^8.12",
         "laravel/passport": "^10.1",
         "laravel/tinker": "^2.5",

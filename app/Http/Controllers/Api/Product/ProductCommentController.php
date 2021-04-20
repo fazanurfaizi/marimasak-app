@@ -1,29 +1,29 @@
 <?php
 
-namespace App\Http\Controllers\Api\Recipe;
+namespace App\Http\Controllers\Api\Product;
 
 use Auth;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Recipe\Recipe;
-use App\Models\Recipe\RecipeComment;
-use App\Requests\Api\Recipe\StoreRecipeCommentRequest;
-use App\Requests\Api\Recipe\UpdateRecipeCommentRequest;
+use Illuminate\Http\Request;
+use App\Models\Product\Product;
+use App\Models\Product\ProductComment;
+use App\Requests\Api\Product\StoreProductCommentRequest;
+use App\Requests\Api\Product\UpdateProductCommentRequest;
 
-class RecipeCommentController extends Controller
+class ProductCommentController extends Controller
 {
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Requests\Api\Recipe\StoreRecipeCommentRequest  $request
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreRecipeCommentRequest $request)
+    public function store(StoreProductCommentRequest $request)
     {
-        $comment = RecipeComment::create([
+        $comment = ProductComment::create([
             'body' => $request->body,
             'user_id' => Auth::user()->id,
-            'recipe_id' => $request->recipe_id
+            'product_id' => $request->product_id
         ]);
 
         return response()->json([
@@ -40,7 +40,7 @@ class RecipeCommentController extends Controller
      */
     public function show($id)
     {
-        $comment = RecipeComment::with('user')
+        $comment = ProductComment::with('user')
             ->where('id', $id)
             ->first();
 
@@ -58,16 +58,16 @@ class RecipeCommentController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Requests\Api\Recipe\UpdateRecipeCommentRequest  $request
+     * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateRecipeCommentRequest $request, $id)
+    public function update(UpdateProductCommentRequest $request, $id)
     {
-        $comment = RecipeComment::findOrFail($id);
+        $comment = ProductComment::findOrFail($id);
 
         $comment->body = $request->body;
-        $comment->recipe_id = $request->recipe_id;
+        $comment->product_id = $request->product_id;
         $comment->save();
 
         return response()->json([
@@ -84,9 +84,9 @@ class RecipeCommentController extends Controller
      */
     public function destroy($id)
     {
-        $comment = RecipeComment::where('id', $id)->first();
+        $comment = ProductComment::where('id', $id)->first();
         if($comment) {
-            RecipeComment::findOrFail($id)->delete();
+            ProductComment::findOrFail($id)->delete();
         } else {
             return response()->json([
                 'message' => 'Comment not found'
