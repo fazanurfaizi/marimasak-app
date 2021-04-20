@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Recipe\Recipe;
 use Auth;
+use Str;
 use Image;
 
 class RecipeController extends Controller
@@ -59,7 +60,7 @@ class RecipeController extends Controller
 
             $image = $request->thumbnail;
             $ext = $request->thumbnail->getClientOriginalExtension();
-            $imageName = date('YmdHis') . rand(1, 999999) . '.' . $ext;
+            $imageName = (string) Str::uuid() . '.' . $ext;
             $thumbnail = Image::make($image->getRealPath())->resize(1024, 512);
             $savedImage = Image::make($thumbnail)->save($this->uploadPath . $imageName);
             $recipe->image = $imageName;
@@ -113,6 +114,21 @@ class RecipeController extends Controller
         $recipe->description = $request->description;
         $recipe->materials = $request->materials;
         $recipe->methods = $request->methods;
+
+        if($request->hasFile('thumbnail')) {
+
+            if(!file_exists($this->uploadPath)) {
+                mkdir($this->uploadPath, 777, true);
+            }
+
+            $image = $request->thumbnail;
+            $ext = $request->thumbnail->getClientOriginalExtension();
+            $imageName = (string) Str::uuid() . '.' . $ext;
+            $thumbnail = Image::make($image->getRealPath())->resize(1024, 512);
+            $savedImage = Image::make($thumbnail)->save($this->uploadPath . $imageName);
+            $recipe->image = $imageName;
+        }
+
         $recipe->save();
 
         return response()->json([

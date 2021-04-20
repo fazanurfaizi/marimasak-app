@@ -2,21 +2,23 @@
 
 namespace App\Http\Controllers\Api\Recipe;
 
-use App\Http\Controllers\Controller;
+use Auth;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use App\Models\Recipe\Recipe;
 use App\Models\Recipe\RecipeComment;
-use Auth;
+use App\Requests\Api\Recipe\StoreRecipeCommentRequest;
+use App\Requests\Api\Recipe\UpdateRecipeCommentRequest;
 
 class RecipeCommentController extends Controller
 {
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Requests\Api\Recipe\StoreRecipeCommentRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreRecipeCommentRequest $request)
     {
         $comment = RecipeComment::create([
             'body' => $request->body,
@@ -56,15 +58,16 @@ class RecipeCommentController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Requests\Api\Recipe\UpdateRecipeCommentRequest  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateRecipeCommentRequest $request, $id)
     {
         $comment = RecipeComment::findOrFail($id);
 
         $comment->body = $request->body;
+        $comment->recipe_id = $request->recipe_id;
         $comment->save();
 
         return response()->json([

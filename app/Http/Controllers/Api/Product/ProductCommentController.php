@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\Api\Product;
 
+use Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Product\Product;
 use App\Models\Product\ProductComment;
-use Auth;
+use App\Requests\Api\Product\StoreProductCommentRequest;
+use App\Requests\Api\Product\UpdateProductCommentRequest;
 
 class ProductCommentController extends Controller
 {
@@ -16,7 +18,7 @@ class ProductCommentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreProductCommentRequest $request)
     {
         $comment = ProductComment::create([
             'body' => $request->body,
@@ -60,11 +62,12 @@ class ProductCommentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateProductCommentRequest $request, $id)
     {
         $comment = ProductComment::findOrFail($id);
 
         $comment->body = $request->body;
+        $comment->product_id = $request->product_id;
         $comment->save();
 
         return response()->json([

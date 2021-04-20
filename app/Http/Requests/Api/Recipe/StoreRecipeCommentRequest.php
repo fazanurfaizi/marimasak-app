@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Admin\Company;
+namespace App\Http\Requests\Api\Recipe;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CreateCompanyRequest extends FormRequest
+class StoreRecipeCommentRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,7 +24,8 @@ class CreateCompanyRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'body' => 'required|string',
+            'recipe_id' => 'required|exists:recipes,id'
         ];
     }
 }
