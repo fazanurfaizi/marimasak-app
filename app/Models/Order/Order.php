@@ -9,6 +9,11 @@ class Order extends Model
 {
     use HasFactory;
 
+    const WAITING = 'waiting';
+    const PROCESS = 'process';
+    const DONE = 'done';
+    const DENIED = 'denied';
+
     protected $fillable = [
         'user_id',
         'promo_id',
@@ -22,5 +27,9 @@ class Order extends Model
 
     public function shipping() {
         return $this->hasOne(Shipping::class, 'order_id', 'id');
+    }
+
+    public function orderDetails() {
+        return $this->hasMany(OrderDetail::class);
     }
 }

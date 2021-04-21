@@ -1,19 +1,17 @@
 <?php
 
-namespace App\Models\Product;
+namespace App\Models\User;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class ProductType extends Model
+class FriendGroup extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'name',
+        'friendship_id', 'group_id', 'friend_id', 'friend_type'
     ];
 
-    public function products() {
-        return $this->hasMany(Product::class);
-    }
+    public $timestamps = false;
 }

@@ -36,22 +36,21 @@
         @include('./component/header')
         <!-- /.navbar -->
 
-        <!-- Main Sidebar Container -->
+        <!-- Sidebar -->
         @include('./component/sidebar')
 
-        <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
             <!-- Content Header (Page header) -->
             <div class="content-header">
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1 class="m-0">Input Category Product</h1>
+                            <h1 class="m-0">Edit Product Types</h1>
                         </div><!-- /.col -->
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item"><a href="/">Home</a></li>
-                                <li class="breadcrumb-item active">InputCategory</li>
+                                <li class="breadcrumb-item active">Product Types</li>
                             </ol>
                         </div><!-- /.col -->
                     </div><!-- /.row -->
@@ -64,39 +63,25 @@
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-10">
-                            <form>
+                            <form action="{{ route('product-types.update', ['product_type' => $productType]) }}" method="post">
+                                @csrf
+                                @method('PUT')
                                 <div class="card-body">
                                     <div class="form-group">
                                         <label for="nameproduct">Nama </label>
-                                        <input type="text" class="form-control" id="nameproduct" placeholder="Nama Produk">
+                                        <input type="text" class="form-control" id="nameproduct" name="name" placeholder="Nama Produk" value="{{ $productType->name }}">
                                     </div>
                                     <div class="form-group">
-                                        <label for="descriptionproduct">Keterangan </label>
-                                        <textarea class="form-control" id="descriptionproduct" placeholder="Deskripsi Produk"></textarea>
-                                    </div>
-                                    <div class="row">
-                                    </div>
-                                    <!-- /.card-body -->
-                                    <div class="card-body ">
                                         <button type="submit" class="btn btn-primary">Submit</button>
                                     </div>
+                                </div>
                             </form>
                         </div>
-
                     </div>
-                </div><!-- /.container-fluid -->
+                </div>
             </section>
-            <!-- /.content -->
         </div>
-        <!-- /.content-wrapper -->
 
         @include('./component/footer')
-        <!-- Control Sidebar -->
-        <aside class="control-sidebar control-sidebar-dark">
-            <!-- Control sidebar content goes here -->
-        </aside>
-        <!-- /.control-sidebar -->
     </div>
-    <!-- ./wrapper -->
-
 </html>

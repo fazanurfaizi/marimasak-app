@@ -74,4 +74,11 @@ Route::group(['middleware' => 'auth:api'], function() {
             Route::delete('/{id}', 'MessageController@destroy');
         });
     });
+
+    Route::group(['namespace' => 'Order'], function() {
+        Route::get('/cart', 'CartController@index');
+        Route::post('/cart-add', 'CartController@addProducts');
+        Route::post('/cart-remove', 'CartController@removeProduct');
+        Route::post('/order-checkout', 'CartController@checkout');
+    });
 });

@@ -19,7 +19,9 @@ use App\Models\Product\ProductLike;
 use App\Models\Product\ProductComment;
 use App\Models\Chat\Chatroom;
 use App\Models\Chat\Message;
+use App\Models\Order\Cart;
 use App\Traits\Followable;
+use App\Traits\Friendable;
 
 class User extends Authenticatable implements Searchable
 {
@@ -28,6 +30,7 @@ class User extends Authenticatable implements Searchable
     use SoftDeletes;
     use HasApiTokens;
     use Followable;
+    use Friendable;
 
     const REGISTERED = 'registered';
     const ONLINE = 'online';
@@ -121,6 +124,10 @@ class User extends Authenticatable implements Searchable
         return $this->hasMany(Message::class);
     }
 
+    public function cart() {
+        return $this->hasOne(Cart::class);
+    }
+
     public function getSearchResult(): SearchResult
     {
         $url = '';
@@ -128,34 +135,15 @@ class User extends Authenticatable implements Searchable
         return new SearchResult($this, $this->name, $url);
     }
 
-    /**
-     * A user can be MEMBER of many chat rooms
-     *
-     * @return object members
-     */
     public function members() {
         return $this->belongsToMany(Chatroom::class, 'room_user', 'user_id', 'room_id')
             ->withTimestamps();
     }
 
-    /**
-     * Check if user owns a certain roo
-     *
-     * @param   Chatroom    $room
-     *
-     * @return  boolean
-     */
     public function isOwner(Chatroom $room) {
         return $this->id === $room->owner_id;
     }
 
-    /**
-     * Check if user is Member of a certain room
-     *
-     * @param Room $room Room object model
-     *
-     * @return boolean
-     */
     public function isMemberOf($room_id)
     {
         return $this->members->contains('id', $room_id);
