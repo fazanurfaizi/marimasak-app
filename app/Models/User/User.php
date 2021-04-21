@@ -9,8 +9,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Laravel\Passport\HasApiTokens;
-use Spatie\Searchable\Searchable;
-use Spatie\Searchable\SearchResult;
+use Spatie\Permission\Traits\HasRoles;
 use App\Models\Recipe\Recipe;
 use App\Models\Recipe\RecipeLike;
 use App\Models\Recipe\RecipeComment;
@@ -23,7 +22,7 @@ use App\Models\Order\Cart;
 use App\Traits\Followable;
 use App\Traits\Friendable;
 
-class User extends Authenticatable implements Searchable
+class User extends Authenticatable
 {
     // use HasFactory;
     use Notifiable;
@@ -31,6 +30,7 @@ class User extends Authenticatable implements Searchable
     use HasApiTokens;
     use Followable;
     use Friendable;
+    use HasRoles;
 
     const REGISTERED = 'registered';
     const ONLINE = 'online';
@@ -126,13 +126,6 @@ class User extends Authenticatable implements Searchable
 
     public function cart() {
         return $this->hasOne(Cart::class);
-    }
-
-    public function getSearchResult(): SearchResult
-    {
-        $url = '';
-
-        return new SearchResult($this, $this->name, $url);
     }
 
     public function members() {
