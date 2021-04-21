@@ -28,7 +28,8 @@ class RecipeController extends Controller
      */
     public function index(Request $request)
     {
-        $recipes = Recipe::orderBy('created_at', 'DESC')
+        $recipes = Recipe::with('user')
+            ->orderBy('created_at', 'DESC')
             ->limit($request->get('limit'))
             ->get();
 

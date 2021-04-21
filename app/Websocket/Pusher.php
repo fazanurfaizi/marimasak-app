@@ -13,16 +13,28 @@ class Pusher implements WampServerInterface {
         $redis_host = config('database.redis.default.host');
         $redis_port = config('database.redis.default.port');
         try {
-            $client = new Client();
-            $client->connect(function ($client) use ($loop) {
-                $logger = new \Predis\Async\Client('tcp://127.0.0.1:6379', $loop);
-                $client->pubSubLoop('WampMessage', function ($event) use ($logger) {
-                    $payload = json_decode($event->payload, true);
-                    $message = json_encode($payload['data']['message']);
-                    Chat::getInstance()->broadcast($message);
-                });
-                Log::v(' ', $loop, "Connected to Redis.");
-            });
+            $client = new Client([
+                'scheme' => 'tcp',
+                'host'   => $redis_host,
+                'port'   => $redis_port,
+                'read_write_timeout' => 0
+            ]);
+            $pubsub = $client->pubSubLoop();
+            $pubsub->subscribe('WampMessage');
+            foreach ($pubsub as $message) {
+                switch ($message->kind) {
+                    case 'subscribe':
+                        echo "Subscribed to {$message->channel}", PHP_EOL;
+                        break;
+
+                    case 'message':
+                        $payload = json_decode($event->payload, true);
+                        $message = json_encode($payload['data']['message']);
+                        $client->publish('WampMessage', $payload);
+                        Chat::getInstance()->broadcast($message);
+                        break;
+                }
+            }
         }
         catch (Exception $e) {
             die ($e->getMessage());
