@@ -19,6 +19,7 @@ use App\Models\Product\ProductLike;
 use App\Models\Product\ProductComment;
 use App\Models\Chat\Chatroom;
 use App\Models\Chat\Message;
+use App\Traits\Followable;
 
 class User extends Authenticatable implements Searchable
 {
@@ -26,6 +27,7 @@ class User extends Authenticatable implements Searchable
     use Notifiable;
     use SoftDeletes;
     use HasApiTokens;
+    use Followable;
 
     const REGISTERED = 'registered';
     const ONLINE = 'online';
