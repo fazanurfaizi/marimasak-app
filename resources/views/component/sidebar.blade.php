@@ -1,5 +1,5 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
-    <a href="/home" class="brand-link">
+    <a href="/" class="brand-link">
         <span class="brand-text font-weight-light">Mari Masak</span>
     </a>
 
@@ -9,7 +9,7 @@
                 <img src=" {{ asset('lte/dist/img/user2-160x160.jpg')}}" class="img-circle elevation-2" alt="User Image">
             </div>
             <div class="info">
-                <a href="#" class="d-block">{{ auth()->user()->name }}</a>
+                <a href="/" class="d-block">{{ auth()->user()->name }}</a>
             </div>
         </div>
 

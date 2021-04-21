@@ -18,6 +18,9 @@ Route::group(['middleware' => 'auth', 'namespace' => 'Admin'], function() {
     Route::get('/', 'DashboardController@index');
     Route::resource('products', 'ProductController');
     Route::resource('product-types', 'ProductTypeController');
+    Route::get('/invoices', 'InvoiceController@index')->name('invoices.index');
+    Route::get('/invoices/{order}', 'InvoiceController@show')->name('invoices.show');
+    Route::put('/invoices/{order}', 'InvoiceController@update')->name('invoices.update');
 });
 
 
@@ -55,8 +58,4 @@ Route::get('/edit-permission', function () {
 
 Route::get('/input-permission', function () {
     return view('/permission/input_permission');
-});
-
-Route::get('/invoices', function () {
-    return view('invoice.index');
 });

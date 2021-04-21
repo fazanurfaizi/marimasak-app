@@ -103,9 +103,16 @@ class CartController extends Controller
         }
 
         if(count($items) > 0) {
+            $todayItem = Order::count();
+            $numberItem = ($todayItem + 1) > 9 ? $todayItem + 1 : '0'.($todayItem + 1);
+            $latest = Order::latest()->first();
+
+            $invoice_number = 'INV-'.$numberItem.str_pad($latest ? $latest->id : 0 + 1, 3, "0", STR_PAD_LEFT);
+
             $order = Order::create([
                 'user_id' => Auth::user()->id,
                 'promo_id' => 1,
+                'invoice_number' => $invoice_number,
                 'total' => $totalPrice,
                 'status' => Order::WAITING
             ]);
