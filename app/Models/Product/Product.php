@@ -21,14 +21,14 @@ class Product extends Model implements Searchable
     protected $fillable = [
         'name',
         'description',
-        'unit',
         'price',
-        'thumbnail',
+        'image',
         'product_type_id',
     ];
 
     protected $appends = [
-        'likes_count'
+        'likes_count',
+        'image_url'
     ];
 
     public function creator() {
@@ -36,7 +36,7 @@ class Product extends Model implements Searchable
     }
 
     public function productType() {
-        return $this->belognsTo(ProductType::class);
+        return $this->belongsTo(ProductType::class);
     }
 
     public function comments() {
@@ -45,6 +45,10 @@ class Product extends Model implements Searchable
 
     public function getLikesCountAttribute() {
         return count($this->likes);
+    }
+
+    public function getImageUrlAttribute() {
+        return asset('/uploads/products/' . $this->image);
     }
 
     public function getSearchResult(): SearchResult

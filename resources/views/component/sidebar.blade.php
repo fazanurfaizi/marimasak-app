@@ -13,7 +13,7 @@
                         <img src=" {{ asset('lte/dist/img/user2-160x160.jpg')}}" class="img-circle elevation-2" alt="User Image">
                     </div>
                     <div class="info">
-                        <a href="#" class="d-block">Alexander Pierce</a>
+                        <a href="#" class="d-block">{{ auth()->user()->name }}</a>
                     </div>
                 </div>
 
@@ -45,19 +45,19 @@
                 </a>
                 <ul class="nav nav-treeview">
                     <li class="nav-item ">
-                    <a href="/product" class="nav-link">
+                    <a href="/products" class="nav-link">
                         <p>List produk</p>
                     </a>
                     </li>
                     <li class="nav-item">
                     <a href="/input-product" class="nav-link">
-                        
+
                         <p>Tambah Produk</p>
                     </a>
                     </li>
                 </ul>
                 </li>
-                
+
                 <li class="nav-item">
                 <a href="/category" class="nav-link">
                     <i class="nav-icon fas fa-columns"></i>
@@ -67,7 +67,7 @@
                 </a>
                 </li>
             </ul>
-        </nav>  
+        </nav>
                 <!-- /sidebar-menu -->
             </div>
             <!-- /.sidebar -->

@@ -14,10 +14,6 @@ class RecipeController extends Controller
     protected $uploadPath;
 
     public function __construct() {
-        $this->middleware('auth:api', ['except' => [
-            'index', 'show'
-        ]]);
-
         $this->uploadPath = public_path('uploads/recipes/');
     }
 
