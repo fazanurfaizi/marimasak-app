@@ -55,4 +55,12 @@ class UserController extends Controller
         ]);
     }
 
+    public function myRecipes(Request $request) {
+        $recipes = User::with('recipes')->find(Auth::user()->id);
+
+        return response()->json([
+            'data' => $recipes
+        ]);
+    }
+
 }
