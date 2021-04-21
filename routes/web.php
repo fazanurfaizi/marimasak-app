@@ -17,6 +17,7 @@ Auth::routes();
 Route::group(['middleware' => 'auth', 'namespace' => 'Admin'], function() {
     Route::get('/', 'DashboardController@index');
     Route::resource('products', 'ProductController');
+    // Route::resource('invoices', 'InvoiceController');
     // Route::get('/input-product', function () {
     //     return view('/product/input_product');
     // });
@@ -28,5 +29,8 @@ Route::group(['middleware' => 'auth', 'namespace' => 'Admin'], function() {
     // });
     // Route::get('/input-category', function () {
     //     return view('/category/input_category');
+    // });
+    // Route::get('/invoices', function () {
+    //     return view('/invoice/invoices');
     // });
 });

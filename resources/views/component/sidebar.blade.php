@@ -66,6 +66,15 @@
                     </p>
                 </a>
                 </li>
+
+                <li class="nav-item">
+                <a href="/invoices" class="nav-link">
+                    <i class="nav-icon fas fa-credit-card"></i>
+                    <p>
+                    Tagihan
+                    </p>
+                </a>
+                </li>
             </ul>
         </nav>
                 <!-- /sidebar-menu -->
