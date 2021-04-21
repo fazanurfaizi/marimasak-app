@@ -51,4 +51,7 @@ Route::get('/edit-permission', function () {
 });
 Route::get('/input-permission', function () {
     return view('/permission/input_permission');
+// Route::get('/invoices', function () {
+//     return view('/invoice/invoices');
+    // });
 });
