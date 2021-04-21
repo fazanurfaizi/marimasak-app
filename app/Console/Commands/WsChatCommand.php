@@ -52,7 +52,7 @@ class WsChatCommand extends Command
         $uri = '127.0.0.1:9000';
         $loop = ReactFactory::create();
 
-        $websocket = new ReactServer('127.0.0.1:8080', $loop);
+        $websocket = new ReactServer('127.0.0.1:9000', $loop);
         $echo = new WsServer(new EchoServer);
         $echo->enableKeepAlive($loop, 120);
 

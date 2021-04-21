@@ -22,7 +22,8 @@ class Recipe extends Model
     ];
 
     protected $appends = [
-        'likes_count'
+        'likes_count',
+        'thumbnail_url'
     ];
 
     public function user() {
@@ -44,4 +45,9 @@ class Recipe extends Model
     public function getLikesCountAttribute() {
         return count($this->likes);
     }
+
+    public function getThumbnailUrlAttribute() {
+        return asset('uploads/recipes/' . $this->thumbnail);
+    }
+
 }
