@@ -17,10 +17,7 @@ Auth::routes();
 Route::group(['middleware' => 'auth', 'namespace' => 'Admin'], function() {
     Route::get('/', 'DashboardController@index');
     Route::resource('products', 'ProductController');
-    Route::resource('product-categories', 'ProductTypeController');
-});
-Route::get('/category', function () {
-    return view('/category/category');
+    Route::resource('product-types', 'ProductTypeController');
 });
 Route::get('/edit-category', function () {
     return view('/category/edit_category');

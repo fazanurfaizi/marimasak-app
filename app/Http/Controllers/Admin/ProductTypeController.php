@@ -13,9 +13,13 @@ class ProductTypeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $productTypes = ProductType::when($request->search, function($query) use ($request) {
+            $search = $request->search;
+            return $query->where('name', 'like', "%$search%");
+        })->latest()->paginate(10);
+        return view('category.index', compact('productTypes'));
     }
 
     /**
@@ -25,7 +29,7 @@ class ProductTypeController extends Controller
      */
     public function create()
     {
-        //
+        return view('category.create');
     }
 
     /**
@@ -36,7 +40,11 @@ class ProductTypeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $productType = new ProductType();
+        $productType->name = $request->name;
+        $productType->save();
+
+        return redirect('product-types')->withSuccess('Success');
     }
 
     /**
@@ -58,7 +66,7 @@ class ProductTypeController extends Controller
      */
     public function edit(ProductType $productType)
     {
-        //
+        return view('category.edit', compact('productType'));
     }
 
     /**
@@ -70,7 +78,11 @@ class ProductTypeController extends Controller
      */
     public function update(Request $request, ProductType $productType)
     {
-        //
+        $productType->update([
+            'name' => $request->name,
+        ]);
+
+        return redirect('product-types')->withSuccess('Success');
     }
 
     /**
@@ -81,6 +93,8 @@ class ProductTypeController extends Controller
      */
     public function destroy(ProductType $productType)
     {
-        //
+        $productType->delete();
+
+        return redirect(url()->previous());
     }
 }
