@@ -21,6 +21,7 @@
         "laravel/ui": "^3.2",
         "laravelcollective/html": "^6.2",
         "laravolt/indonesia": "^0.29.0",
+        "myclabs/php-enum": "^1.8",
         "predis/predis": "^1.1",
         "predis/predis-async": "dev-master",
         "spatie/laravel-backup": "^6.15",

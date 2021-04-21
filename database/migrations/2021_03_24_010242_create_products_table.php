@@ -17,9 +17,8 @@ class CreateProductsTable extends Migration
             $table->id();
             $table->string('name');
             $table->text('description')->nullable();
-            $table->string('unit')->nullable();
             $table->double('price')->nullable();
-            $table->string('unique_hash')->nullable();
+            $table->string('image')->nullable();
             $table->bigInteger('product_type_id')->unsigned()->nullable();
             $table->foreign('product_type_id')->references('id')->on('product_types')->onDelete('SET NULL');
             $table->bigInteger('creator_id')->unsigned()->nullable();
