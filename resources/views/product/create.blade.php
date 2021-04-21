@@ -60,16 +60,16 @@
                                 </div>
                             </div>
 
-                        <div class="form-group">
-                            <label for="exampleInputFile">Foto Produk</label>
-                            <div class="input-group">
-                                <div class="custom-file">
-                                    <input type="file" class="custom-file-input" id="image" name="image" value="{{ old('image') }}">
-                                    <label class="custom-file-label" for="image">{{ isset($product) ? $product->image : 'Choose file' }}</label>
+                            <div class="form-group">
+                                <label for="exampleInputFile">Foto Produk</label>
+                                <div class="input-group">
+                                    <div class="custom-file">
+                                        <input type="file" class="custom-file-input" id="image" name="image" value="{{ old('image') }}">
+                                        <label class="custom-file-label" for="image">{{ isset($product) ? $product->image : 'Choose file' }}</label>
+                                    </div>
+                                    <img src="{{ asset('images/placeholder.png') }}" alt="Image" id="image-preview" width="100%" height="384" class="mt-2">
                                 </div>
-                                <img src="{{ asset('images/placeholder.png') }}" alt="Image" id="image-preview" width="100%" height="384" class="mt-2">
                             </div>
-                        </div>
 
                         </div>
 

@@ -6,7 +6,7 @@
     <div class="sidebar">
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
             <div class="image">
-                <img src=" {{ asset('lte/dist/img/user2-160x160.jpg')}}" class="img-circle elevation-2" alt="User Image">
+                <img src="{{ auth()->user()->avatar_url }}" class="img-circle elevation-2" alt="User Image" width="100%" height="100%">
             </div>
             <div class="info">
                 <a href="/" class="d-block">{{ auth()->user()->name }}</a>
@@ -57,22 +57,8 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item ">
-                            <a href="/user" class="nav-link">
+                            <a href="/users" class="nav-link">
                                 <p>List User</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="/role" class="nav-link">
-                                <p>
-                                    Role User
-                                </p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="/permission" class="nav-link">
-                                <p>
-                                    Permission
-                                </p>
                             </a>
                         </li>
                     </ul>
@@ -81,7 +67,7 @@
                 <li class="nav-item">
                     <a href="/invoices" class="nav-link">
                         <i class="nav-icon fas fa-credit-card"></i>
-                        <p>Tagihan</p>
+                        <p>Invoices</p>
                     </a>
                 </li>
             </ul>
