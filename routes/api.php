@@ -30,6 +30,7 @@ Route::group(['middleware' => 'auth:api'], function() {
         Route::get('/user/{id}', 'UserController@show');
         Route::post('/user-follow', 'UserController@follow');
         Route::get('/my-recipes', 'UserController@myRecipes');
+        Route::post('/update-profile', 'ProfileController@update');
     });
 
     Route::group(['namespace' => 'Recipe'], function() {

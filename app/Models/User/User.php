@@ -49,7 +49,8 @@ class User extends Authenticatable
         'password',
         'status',
         'activation_token',
-        'avatar'
+        'avatar',
+        'address'
     ];
 
     /**
@@ -89,7 +90,7 @@ class User extends Authenticatable
     protected $appends = ['avatar_url'];
 
     public function getAvatarUrlAttribute() {
-        return $this->avatar ? Storage::url('avatars/'.$this->id.'/'.$this->avatar) : null;
+        return $this->avatar ? asset('uploads/users/' . $this->avatar) : null;
     }
 
     public function recipes() {
