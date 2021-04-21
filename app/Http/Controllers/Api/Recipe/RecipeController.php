@@ -37,7 +37,6 @@ class RecipeController extends Controller
             'data' => $recipes
         ]);
     }
-
     /**
      * Store a newly created resource in storage.
      *
