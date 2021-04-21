@@ -1,84 +1,43 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('layouts.admin')
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Marimasak</title>
-
-    <!-- Google Font: Source Sans Pro -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="{{ asset('lte/plugins/fontawesome-free/css/all.min.css')}}">
-    <!-- Ionicons -->
-    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-    <!-- Tempusdominus Bootstrap 4 -->
-    <link rel="stylesheet" href=" {{ asset('lte/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css')}}">
-    <!-- iCheck -->
-    <link rel="stylesheet" href=" {{ asset('lte/plugins/icheck-bootstrap/icheck-bootstrap.min.css')}}">
-    <!-- JQVMap -->
-    <link rel="stylesheet" href=" {{ asset('lte/plugins/jqvmap/jqvmap.min.css')}}">
-    <!-- Theme style -->
-    <link rel="stylesheet" href=" {{ asset('lte/dist/css/adminlte.min.css')}}">
-    <!-- overlayScrollbars -->
-    <link rel="stylesheet" href=" {{ asset('lte/plugins/overlayScrollbars/css/OverlayScrollbars.min.css')}}">
-    <!-- Daterange picker -->
-    <link rel="stylesheet" href=" {{ asset('lte/plugins/daterangepicker/daterangepicker.css')}}">
-    <!-- summernote -->
-    <link rel="stylesheet" href=" {{ asset('lte/plugins/summernote/summernote-bs4.min.css')}}">
-</head>
-
-<body class="hold-transition sidebar-mini layout-fixed">
-    <div class="wrapper">
-
-        <!-- Navbar -->
-        @include('./component/header')
-        <!-- /.navbar -->
-
-        <!-- Sidebar -->
-        @include('./component/sidebar')
-
-        <div class="content-wrapper">
-            <div class="content-header">
-                <div class="container-fluid">
-                    <div class="row mb-2">
-                        <div class="col-sm-6">
-                            <h1 class="m-0">Create Product Types</h1>
-                        </div>
-                        <div class="col-sm-6">
-                            <ol class="breadcrumb float-sm-right">
-                                <li class="breadcrumb-item"><a href="/">Home</a></li>
-                                <li class="breadcrumb-item active">Product Types</li>
-                            </ol>
-                        </div>
-                    </div>
-                </div>
+@section('content')
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1 class="m-0">Create Product Types</h1>
             </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="/">Home</a></li>
+                    <li class="breadcrumb-item active">Product Types</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
 
-            <section class="content">
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-10">
-                            <form action="{{ route('product-types.store') }}" method="POST">
-                                @csrf
-                                <div class="card-body">
-                                    <div class="form-group {{ $errors->has('name') ? 'has-error' : '' }}">
-                                        <label for="nameproduct">Nama </label>
-                                        <input type="text" class="form-control" id="nameproduct" name="name" placeholder="Nama Produk" value="{{ old('name') }}">
-                                        <span class="help-block">
-                                            <strong>{{ $errors->first('name') }}</strong>
-                                        </span>
-                                    </div>
-                                    <div class="form-group">
-                                        <button type="submit" class="btn btn-primary">Submit</button>
-                                    </div>
-                                </div>
-                            </form>
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-10">
+                <form action="{{ route('product-types.store') }}" method="POST">
+                    @csrf
+                    <div class="card-body">
+                        <div class="form-group {{ $errors->has('name') ? 'has-error' : '' }}">
+                            <label for="nameproduct">Nama </label>
+                            <input type="text" class="form-control" id="nameproduct" name="name" placeholder="Nama Produk" value="{{ old('name') }}">
+                            <span class="help-block">
+                                <strong>{{ $errors->first('name') }}</strong>
+                            </span>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary">Submit</button>
                         </div>
                     </div>
-                </div>
-            </section>
+                </form>
+            </div>
         </div>
-        @include('./component/footer')
     </div>
-</html>
+</section>
+@endsection
