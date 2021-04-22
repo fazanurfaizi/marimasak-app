@@ -21,7 +21,8 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-10">
-                    <form>
+                    <form action="{{ route('users.store') }}" method="post" enctype="multipart/form-data">
+                        @csrf
                         <div class="card-body">
                             <div class="form-group">
                                 <label for="nameuser">Nama </label>

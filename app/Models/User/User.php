@@ -9,7 +9,6 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Laravel\Passport\HasApiTokens;
-use Spatie\Permission\Traits\HasRoles;
 use App\Models\Recipe\Recipe;
 use App\Models\Recipe\RecipeLike;
 use App\Models\Recipe\RecipeComment;
@@ -30,7 +29,6 @@ class User extends Authenticatable
     use HasApiTokens;
     use Followable;
     use Friendable;
-    use HasRoles;
 
     const REGISTERED = 'registered';
     const ONLINE = 'online';
@@ -50,7 +48,8 @@ class User extends Authenticatable
         'status',
         'activation_token',
         'avatar',
-        'address'
+        'address',
+        'role'
     ];
 
     /**
