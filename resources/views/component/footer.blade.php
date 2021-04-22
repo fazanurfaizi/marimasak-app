@@ -1,6 +1,6 @@
 <footer class="main-footer">
     <strong>Copyright &copy; 2021 MariMasak</strong>
-            All rights reserved
+    All rights reserved
 </footer>
 
     <!-- jQuery -->
@@ -36,4 +36,6 @@
     <!-- AdminLTE for demo purposes -->
     <script src=" {{ asset('lte/dist/js/demo.js')}}"></script>
     <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-    <script src=" {{ asset('lte/dist/js/pages/dashboard.js')}}"></script>
+    {{-- <script src=" {{ asset('lte/dist/js/pages/dashboard.js')}}"></script> --}}
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    @stack('srcipts')

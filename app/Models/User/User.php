@@ -9,8 +9,6 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Laravel\Passport\HasApiTokens;
-use Spatie\Searchable\Searchable;
-use Spatie\Searchable\SearchResult;
 use App\Models\Recipe\Recipe;
 use App\Models\Recipe\RecipeLike;
 use App\Models\Recipe\RecipeComment;
@@ -19,15 +17,18 @@ use App\Models\Product\ProductLike;
 use App\Models\Product\ProductComment;
 use App\Models\Chat\Chatroom;
 use App\Models\Chat\Message;
+use App\Models\Order\Cart;
 use App\Traits\Followable;
+use App\Traits\Friendable;
 
-class User extends Authenticatable implements Searchable
+class User extends Authenticatable
 {
     // use HasFactory;
     use Notifiable;
     use SoftDeletes;
     use HasApiTokens;
     use Followable;
+    use Friendable;
 
     const REGISTERED = 'registered';
     const ONLINE = 'online';
@@ -46,7 +47,9 @@ class User extends Authenticatable implements Searchable
         'password',
         'status',
         'activation_token',
-        'avatar'
+        'avatar',
+        'address',
+        'role'
     ];
 
     /**
@@ -86,7 +89,7 @@ class User extends Authenticatable implements Searchable
     protected $appends = ['avatar_url'];
 
     public function getAvatarUrlAttribute() {
-        return $this->avatar ? Storage::url('avatars/'.$this->id.'/'.$this->avatar) : null;
+        return $this->avatar ? asset('uploads/users/' . $this->avatar) : null;
     }
 
     public function recipes() {
@@ -121,41 +124,19 @@ class User extends Authenticatable implements Searchable
         return $this->hasMany(Message::class);
     }
 
-    public function getSearchResult(): SearchResult
-    {
-        $url = '';
-
-        return new SearchResult($this, $this->name, $url);
+    public function cart() {
+        return $this->hasOne(Cart::class);
     }
 
-    /**
-     * A user can be MEMBER of many chat rooms
-     *
-     * @return object members
-     */
     public function members() {
         return $this->belongsToMany(Chatroom::class, 'room_user', 'user_id', 'room_id')
             ->withTimestamps();
     }
 
-    /**
-     * Check if user owns a certain roo
-     *
-     * @param   Chatroom    $room
-     *
-     * @return  boolean
-     */
     public function isOwner(Chatroom $room) {
         return $this->id === $room->owner_id;
     }
 
-    /**
-     * Check if user is Member of a certain room
-     *
-     * @param Room $room Room object model
-     *
-     * @return boolean
-     */
     public function isMemberOf($room_id)
     {
         return $this->members->contains('id', $room_id);

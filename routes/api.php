@@ -30,6 +30,7 @@ Route::group(['middleware' => 'auth:api'], function() {
         Route::get('/user/{id}', 'UserController@show');
         Route::post('/user-follow', 'UserController@follow');
         Route::get('/my-recipes', 'UserController@myRecipes');
+        Route::post('/update-profile', 'ProfileController@update');
     });
 
     Route::group(['namespace' => 'Recipe'], function() {
@@ -73,5 +74,12 @@ Route::group(['middleware' => 'auth:api'], function() {
             Route::post('/{id}/upload', 'MessageController@upload');
             Route::delete('/{id}', 'MessageController@destroy');
         });
+    });
+
+    Route::group(['namespace' => 'Order'], function() {
+        Route::get('/cart', 'CartController@index');
+        Route::post('/cart-add', 'CartController@addProducts');
+        Route::post('/cart-remove', 'CartController@removeProduct');
+        Route::post('/order-checkout', 'CartController@checkout');
     });
 });

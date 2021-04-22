@@ -12,25 +12,14 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Auth::routes();
 
-Route::get('/', function () {
-    return view('dashboard');
-});
-Route::get('/product', function () {
-    return view('/product/product');
-});
-Route::get('/edit-product', function () {
-    return view('/product/edit_product');
-});
-Route::get('/input-product', function () {
-    return view('/product/input_product');
-});
-Route::get('/category', function () {
-    return view('/category/category');
-});
-Route::get('/edit-category', function () {
-    return view('/category/edit_category');
-});
-Route::get('/input-category', function () {
-    return view('/category/input_category');
+Route::group(['middleware' => 'auth', 'namespace' => 'Admin'], function() {
+    Route::get('/', 'DashboardController@index');
+    Route::resource('users', 'UserController');
+    Route::resource('products', 'ProductController');
+    Route::resource('product-types', 'ProductTypeController');
+    Route::get('/invoices', 'InvoiceController@index')->name('invoices.index');
+    Route::get('/invoices/{order}', 'InvoiceController@show')->name('invoices.show');
+    Route::put('/invoices/{order}', 'InvoiceController@update')->name('invoices.update');
 });

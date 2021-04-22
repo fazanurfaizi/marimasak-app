@@ -20,6 +20,7 @@ class CreateUsersTable extends Migration
             $table->string('phone')->nullable();
             $table->string('avatar')->nullable();
             $table->string('password')->nullable();
+            $table->string('address')->nullable();
             $table->rememberToken();
             $table->enum('status', ['registered', 'online', 'offline', 'banned'])->nullable()->default('registered');
             $table->string('activation_token')->nullable();
