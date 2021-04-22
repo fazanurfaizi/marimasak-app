@@ -33,7 +33,7 @@
 
         <!-- Preloader -->
         <div class="preloader flex-column justify-content-center align-items-center">
-            <img class="animation__shake" src="dist/img/AdminLTELogo.png" alt="marimasak" height="60" width="60">
+            <p>Loading...</p>
         </div>
 
         <!-- Navbar -->
@@ -52,8 +52,8 @@
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
-                                <li class="breadcrumb-item"><a href="#">Home</a></li>
-                                <li class="breadcrumb-item active">Dashboard v1</li>
+                                <li class="breadcrumb-item"><a href="/">Home</a></li>
+                                <li class="breadcrumb-item active">Dashboard</li>
                             </ol>
                         </div>
                     </div>
@@ -72,7 +72,7 @@
                                 <div class="icon">
                                     <i class="ion ion-bag"></i>
                                 </div>
-                                <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                                <a href="{{ route('invoices.index') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                             </div>
                         </div>
                         <div class="col-lg-4 col-6">
@@ -84,7 +84,7 @@
                                 <div class="icon">
                                     <i class="ion ion-beer"></i>
                                 </div>
-                                <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                                <a href="{{ route('products.index') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                             </div>
                         </div>
                         <div class="col-lg-4 col-6">
@@ -96,12 +96,12 @@
                                 <div class="icon">
                                     <i class="ion ion-person-add"></i>
                                 </div>
-                                <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                                <a href="{{ route('users.index') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                             </div>
                         </div>
                     </div>
 
-                    <div class="row">
+                    {{-- <div class="row">
                         <section class="col-lg-7 connectedSortable">
                             <div class="card">
                                 <div class="card-header">
@@ -143,7 +143,7 @@
                                 </div>
                             </div>
                         </section>
-                    </div>
+                    </div> --}}
                 </div>
             </section>
         </div>

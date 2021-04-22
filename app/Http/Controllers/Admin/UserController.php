@@ -56,6 +56,7 @@ class UserController extends Controller
         $user->password = bcrypt($request->password);
         $user->phone = $request->phone;
         $user->address = $request->address;
+        $user->role = 'admin';
 
         if($request->hasFile('image')) {
 

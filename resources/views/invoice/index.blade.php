@@ -48,7 +48,7 @@
                                     @forelse ($orders as $order)
                                         <tr>
                                             <td scope="row" class="text-center">{{ $loop->index + 1 }}</td>
-                                            <td class="text-center">{{ $order->id }}</td>
+                                            <td class="text-center">{{ $order->invoice_number }}</td>
                                             <td class="text-center">{{ $order->total }}</td>
                                             <td class="text-center">
                                                 @switch($order->status)

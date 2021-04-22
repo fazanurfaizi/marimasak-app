@@ -59,7 +59,7 @@ class RecipeController extends Controller
             $imageName = (string) Str::uuid() . '.' . $ext;
             $thumbnail = Image::make($image->getRealPath())->resize(1024, 512);
             $savedImage = Image::make($thumbnail)->save($this->uploadPath . $imageName);
-            $recipe->image = $imageName;
+            $recipe->thumbnail = $imageName;
         }
 
         $recipe->save();
