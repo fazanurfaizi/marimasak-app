@@ -23,11 +23,12 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
-        $users = User::when($request->search, function($query) use ($request) {
-            $search = $request->search;
-            return $query->where('name', 'like', "%$search%")
-                ->orWhere('email', 'like', "%$search%");
-        })->latest()->paginate(10);
+        $users = User::where('role', 'admin')
+            ->when($request->search, function($query) use ($request) {
+                $search = $request->search;
+                return $query->where('name', 'like', "%$search%")
+                    ->orWhere('email', 'like', "%$search%");
+            })->latest()->paginate(10);
 
         return view('user.index', compact('users'));
     }
