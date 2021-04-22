@@ -70,6 +70,7 @@ class RecipeController extends Controller
 
         return response()->json([
             'message' => 'Recipe succesffulyy added',
+            'success' => 'true',
             'data' => $recipe
         ]);
     }
@@ -133,6 +134,7 @@ class RecipeController extends Controller
 
         return response()->json([
             'message' => 'Recipe succesffulyy updated',
+            'success' => 'true',
             'data' => $recipe
         ]);
     }
@@ -150,12 +152,14 @@ class RecipeController extends Controller
             Recipe::findOrFail($id)->delete();
         } else {
             return response()->json([
-                'message' => 'Recipe not found'
+                'message' => 'Recipe not found',
+                'success' => 'false'
             ], 404);
         }
 
         return response()->json([
             'message' => 'Recipe succesffulyy deleted',
+            'success' => 'true',
             'data' => $recipe
         ]);
     }
