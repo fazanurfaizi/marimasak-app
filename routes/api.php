@@ -40,7 +40,7 @@ Route::group(['middleware' => 'auth:api'], function() {
             Route::get('/{id}', 'RecipeCommentController@show');
             Route::put('/{id}', 'RecipeCommentController@update');
             Route::delete('/{id}', 'RecipeCommentController@destroy');
-            Route::get('/image/{thumbnail}', 'RecipeCommentController@getImage');
+
         });
         Route::post('/recipe-like/{id}', 'RecipeLikeController');
     });
